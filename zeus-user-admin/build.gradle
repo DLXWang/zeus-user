@@ -1,0 +1,14 @@
+dependencies {
+    api project(":zeus-user-common")
+    implementation 'org.springframework.boot:spring-boot-starter'
+    /** jwt */
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+
+    /** security */
+    implementation 'org.mindrot:jbcrypt:0.4' // 根据需要选择合适的版本号
+
+
+
+
+}

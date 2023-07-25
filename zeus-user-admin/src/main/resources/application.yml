@@ -1,0 +1,33 @@
+server:
+  port: 8080
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/thanos
+      hedge:
+        uri: mongodb://localhost:27017/hulk
+
+  datasource:
+    url: "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai"
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+
+security:
+  jwt:
+    private_key: tree
+    access_token_expiration_time: 1000 #1800000
+    refresh_token_expiration_time: 30000000 #3600000
+
+
+
+
+
+
+
+

@@ -1,0 +1,92 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.15' apply false
+    id 'java'
+    id 'groovy'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
+}
+
+ext {
+    set("versionType", "RELEASE")
+    set("projVersion", "1.0.0")
+}
+
+allprojects {
+    group 'com.xinxu.zeus'
+    version rootProject.ext.projVersion+'-'+(rootProject.ext.versionType.endsWith('SNAPSHOT') ?
+            rootProject.ext.versionType : System.getenv("BUILD_NUMBER"))
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    ext {
+        set('log4j2.version', "2.17.2")
+        set('springCloudVersion', "2020.0.3")
+        def deployEnv = System.getenv("deployEnv")
+    }
+
+    dependencies {
+        compileOnly("org.projectlombok:lombok:1.18.18")
+        annotationProcessor("org.projectlombok:lombok:1.18.18")
+        /* log4j2 */
+        implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.7.1'
+        implementation 'com.lmax:disruptor:3.4.4'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+    configurations {
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+            resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+            resolutionStrategy.cacheDynamicVersionsFor 0, 'minutes'
+        }
+    }
+
+
+
+    test {
+        useJUnitPlatform()
+    }
+
+
+    bootJar {
+        destinationDirectory = file("$project.projectDir/target")
+    }
+
+    clean.doFirst {
+        delete "$project.projectDir/target"
+        println "$project.projectDir/target"
+    }
+}
