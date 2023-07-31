@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,5 +21,7 @@ public class AccountKeyInfoVO {
     private String userCode;
     @ApiModelProperty(value = "单位id")
     private Long unitId;
+    @ApiModelProperty(value = "客户端id")
+    private List<Long> clientIds;
 
 }

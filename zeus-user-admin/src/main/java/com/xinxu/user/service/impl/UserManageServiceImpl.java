@@ -1,11 +1,13 @@
 package com.xinxu.user.service.impl;
 
+import com.xinxu.user.entity.BaseClientUser;
 import com.xinxu.user.entity.BaseUser;
 import com.xinxu.user.exception.BadCredentialsException;
 import com.xinxu.user.exception.ExpireException;
 import com.xinxu.user.model.AccountKeyInfoVO;
 import com.xinxu.user.model.BaseUserDTO;
 import com.xinxu.user.model.UserLoginDTO;
+import com.xinxu.user.service.IBaseUserClientService;
 import com.xinxu.user.service.IBaseUserService;
 import com.xinxu.user.service.IUserManageService;
 import com.xinxu.user.util.JwtUtil;
@@ -16,13 +18,16 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
 public class UserManageServiceImpl implements IUserManageService {
     private final IBaseUserService iBaseUserService;
+    private final IBaseUserClientService iBaseUserClientService;
     private final JwtUtil jwtUtil;
 
     @Override
@@ -72,11 +77,13 @@ public class UserManageServiceImpl implements IUserManageService {
         if (Objects.isNull(baseUser)) {
             throw new BadCredentialsException("没有可用的用户");
         }
+        List<BaseClientUser> baseClientUsers = iBaseUserClientService.queryByUserId(baseUser.getId());
         return AccountKeyInfoVO.builder()
                 .userId(baseUser.getId())
                 .username(baseUser.getUsername())
                 .userCode(baseUser.getUserCode())
                 .unitId(baseUser.getUnitId())
+                .clientIds(baseClientUsers.stream().map(BaseClientUser::getClientId).collect(Collectors.toList()))
                 .build();
 
     }
