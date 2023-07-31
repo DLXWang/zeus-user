@@ -73,27 +73,8 @@ CREATE TABLE `base_unit`  (
                               UNIQUE INDEX `uq_key_code`(`unit_code`) USING BTREE COMMENT '单位编码唯一'
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '单位部门表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of base_unit
--- ----------------------------
 
--- ----------------------------
--- Table structure for base_unit_user
--- ----------------------------
-DROP TABLE IF EXISTS `base_unit_user`;
-CREATE TABLE `base_unit_user`  (
-                                   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-                                   `unit_id` bigint(11) NOT NULL COMMENT '单位id',
-                                   `user_id` bigint(11) NOT NULL COMMENT '人员id',
-                                   `created_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-                                   `updated_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-                                   `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除 0(false)-未删除  1(true)-已删除',
-                                   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '单位部门人员关联表' ROW_FORMAT = DYNAMIC;
 
--- ----------------------------
--- Records of base_unit_user
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for base_user
