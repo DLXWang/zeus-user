@@ -27,8 +27,8 @@ public class JwtConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JwtCheckFilter(userCenterApi))
-                .excludePathPatterns("/swagger-ui.html", "/v2/api-docs")
-                .addPathPatterns("/user/**") // 或者指定需要拦截的路径
+                .excludePathPatterns("/swagger-resources/**","/v2/api-docs")
                 .order(Ordered.LOWEST_PRECEDENCE);
+
     }
 }
