@@ -1,5 +1,7 @@
 package com.xinxu.user.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -102,6 +104,16 @@ abstract public class JsonUtils {
     } catch (Exception ex) {
       logger.error("toJson failed: " + ex.getMessage(), ex);
       return null;
+    }
+  }
+
+  // 将JSON字符串转换为Map<String, Integer>
+  public static Map<String, Integer> jsonToMapInteger(String jsonString)   {
+    try {
+      return JsonObjectMapper.OBJECT_MAPPER.readValue(jsonString, new TypeReference<>() {
+      });
+    } catch (JsonProcessingException e) {
+      throw new IllegalArgumentException("检查 jsonString");
     }
   }
 
