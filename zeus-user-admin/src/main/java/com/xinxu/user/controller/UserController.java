@@ -23,6 +23,7 @@ public class UserController {
     private final IUserManageService iUserManageService;
 
     @ApiOperation(value = "用户注册")
+    @JwtCheckIgnore
     @PostMapping(value = "/register")
     public MapMessage register(@RequestBody @Valid BaseUserDTO baseUserDTO) {
         iUserManageService.register(baseUserDTO);

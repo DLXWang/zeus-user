@@ -1,9 +1,6 @@
 package com.xinxu.user.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.xinxu.user.concvert.LocalDateTimeConvertStringJsonSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @TableName("base_client_user")
 public class BaseClientUser {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
     @ApiModelProperty(value = "父部门id")
     private Long clientId;

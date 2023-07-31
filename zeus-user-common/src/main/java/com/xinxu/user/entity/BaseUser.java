@@ -1,9 +1,6 @@
 package com.xinxu.user.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.xinxu.user.concvert.LocalDateTimeConvertStringJsonSerializer;
 import com.xinxu.user.dict.SexType;
@@ -16,14 +13,13 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("base_user")
 public class BaseUser {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
     @ApiModelProperty(value = "用户名")
     private String username;
