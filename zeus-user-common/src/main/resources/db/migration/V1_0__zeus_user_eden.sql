@@ -46,8 +46,8 @@ CREATE TABLE `base_client_user`  (
                                      `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
                                      `client_id` bigint(11) NOT NULL COMMENT '系统id',
                                      `user_id` bigint(11) NOT NULL COMMENT '用户id',
-                                     `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-                                     `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+                                     `created_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+                                     `updated_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
                                      `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除 0(false)-未删除  1(true)-已删除',
                                      PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统用户关联表' ROW_FORMAT = DYNAMIC;
@@ -119,6 +119,7 @@ CREATE TABLE `base_user`  (
                               `updated_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
                               `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除 0(false)-未删除  1(true)-已删除',
                               PRIMARY KEY (`id`) USING BTREE,
+                              UNIQUE INDEX `uq_key_name`(`username`) USING BTREE COMMENT '用户登录名唯一',
                               UNIQUE INDEX `uq_key_code`(`user_code`) USING BTREE COMMENT '用户编码唯一',
                               UNIQUE INDEX `uq_key_card`(`id_card`) USING BTREE COMMENT '身份证号唯一'
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '人员表' ROW_FORMAT = DYNAMIC;
