@@ -30,7 +30,7 @@ public class JwtConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(new JwtCheckFilter(userCenterApi));
         if (enable_swagger) {
-            interceptorRegistration.excludePathPatterns("/swagger-resources/**", "/v2/api-docs")
+            interceptorRegistration.excludePathPatterns("/swagger-resources/**", "/v2/api-docs", "/error")
                     .order(Ordered.LOWEST_PRECEDENCE);
         }
     }
