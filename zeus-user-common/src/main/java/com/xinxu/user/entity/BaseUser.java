@@ -49,7 +49,7 @@ public class BaseUser {
     @ApiModelProperty(value = "头像路径")
     private String headSculpture;
     @ApiModelProperty(value = "状态")
-    private String state;
+    private Integer state;
 
     private Boolean isDel;
     @TableField(fill = FieldFill.INSERT)

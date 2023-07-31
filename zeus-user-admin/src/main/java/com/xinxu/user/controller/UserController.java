@@ -1,5 +1,6 @@
 package com.xinxu.user.controller;
 
+import com.xinxu.user.controller.common.BaseController;
 import com.xinxu.user.filter.JwtCheckIgnore;
 import com.xinxu.user.model.BaseUserDTO;
 import com.xinxu.user.model.UserLoginDTO;
@@ -19,7 +20,7 @@ import javax.validation.constraints.NotBlank;
 @Api(tags = "用户")
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
-public class UserController {
+public class UserController extends BaseController {
     private final IUserManageService iUserManageService;
 
     @ApiOperation(value = "用户注册")
@@ -53,5 +54,10 @@ public class UserController {
         return MapMessage.successMessage().of("content", iUserManageService.authAndAppend(token));
     }
 
+    @ApiOperation("测试")
+    @GetMapping("/test")
+    public MapMessage test() {
+        return MapMessage.successMessage().of("content", getAccountInfo());
+    }
 
 }
