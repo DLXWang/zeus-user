@@ -1,5 +1,6 @@
 package com.xinxu.user.controller;
 
+import com.xinxu.user.filter.JwtCheckIgnore;
 import com.xinxu.user.model.BaseUserDTO;
 import com.xinxu.user.model.UserLoginDTO;
 import com.xinxu.user.service.IUserManageService;
@@ -30,6 +31,7 @@ public class UserController {
 
     @ApiOperation(value = "用户登录并返回token")
     @PostMapping(value = "/login")
+    @JwtCheckIgnore
     public MapMessage login(@RequestBody @Valid UserLoginDTO userLoginDTO) {
         Pair<String, String> token = iUserManageService.login(userLoginDTO);
         return MapMessage.successMessage().of("access", token.getLeft(), "refresh", token.getRight());
@@ -37,6 +39,7 @@ public class UserController {
 
     @ApiOperation(value = "刷新token")
     @GetMapping(value = "/refreshToken")
+    @JwtCheckIgnore
     public MapMessage refreshToken(@RequestParam("refreshToken") @Valid @NotBlank String refreshToken) {
         Pair<String, String> token = iUserManageService.refresh(refreshToken);
         return MapMessage.successMessage().of("access", token.getLeft(), "refresh", token.getRight());
@@ -44,6 +47,7 @@ public class UserController {
 
     @ApiOperation("校验和获取用户信息")
     @GetMapping("/account")
+    @JwtCheckIgnore
     public MapMessage getAccountDetail(@RequestParam("token") @Valid @NotBlank String token) {
         return MapMessage.successMessage().of("content", iUserManageService.authAndAppend(token));
     }

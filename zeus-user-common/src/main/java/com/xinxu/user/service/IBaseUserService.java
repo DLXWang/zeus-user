@@ -3,7 +3,6 @@ package com.xinxu.user.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xinxu.user.entity.BaseUser;
 
-import java.util.List;
 
 public interface IBaseUserService extends IService<BaseUser>, InternalUpdateAware<Long> {
 
@@ -11,6 +10,6 @@ public interface IBaseUserService extends IService<BaseUser>, InternalUpdateAwar
 
     BaseUser queryByUserName(String userName);
 
-    List<BaseUser> dumpAll();
+    boolean updateUser(BaseUser baseUser);
 
 }
