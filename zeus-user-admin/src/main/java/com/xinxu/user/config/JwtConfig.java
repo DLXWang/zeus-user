@@ -29,6 +29,7 @@ public class JwtConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(new JwtCheckFilter(userCenterApi));
+        // add "/error", swagger 异常会请求/error
         if (enable_swagger) {
             interceptorRegistration.excludePathPatterns("/swagger-resources/**", "/v2/api-docs", "/error")
                     .order(Ordered.LOWEST_PRECEDENCE);
